@@ -34,6 +34,7 @@ export interface UploadOptionsDto {
   delete?: boolean;
   album?: boolean;
   albumName?: string;
+  albumBasePath?: string;
   includeHidden?: boolean;
   concurrency: number;
 }
@@ -411,5 +412,10 @@ const updateAlbums = async (assets: Asset[], options: UploadOptionsDto) => {
 // - Windows: `D:\\test\\Filename.txt` or `D:/test/Filename.txt`
 // - Unix: `/test/Filename.txt`
 export const getAlbumName = (filepath: string, options: UploadOptionsDto) => {
+  if (typeof options.albumBasePath == 'string') {
+    const relativePath = path.dirname(path.relative(options.albumBasePath, filepath));
+    const albumName = relativePath.replaceAll(path.sep, ' - ');
+    return albumName;
+  }
   return options.albumName ?? path.basename(path.dirname(filepath));
 };

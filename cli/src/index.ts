@@ -53,6 +53,14 @@ program
       .default(false),
   )
   .addOption(
+    new Option(
+      '-b, --albumBasePath <path>',
+      'Strips the base path from each file path and uses the remainder to create albums',
+    )
+      .default(false)
+      .conflicts('album-name'),
+  )
+  .addOption(
     new Option('-A, --album-name <name>', 'Add all assets to specified album')
       .env('IMMICH_ALBUM_NAME')
       .conflicts('album'),
