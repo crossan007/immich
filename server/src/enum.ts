@@ -749,6 +749,11 @@ export enum AssetVisibility {
    */
   Hidden = 'hidden',
   Locked = 'locked',
+  
+  /**
+   * Assets hidden from timeline due to album "Hide from Timeline" setting
+   */
+  AlbumHidden = 'album-hidden',
 }
 
 export enum CronJob {

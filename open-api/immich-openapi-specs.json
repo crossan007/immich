@@ -10116,10 +10116,16 @@
           "hasSharedLink": {
             "type": "boolean"
           },
+          "hideFromTimeline": {
+            "type": "boolean"
+          },
           "id": {
             "type": "string"
           },
           "isActivityEnabled": {
+            "type": "boolean"
+          },
+          "isExclusive": {
             "type": "boolean"
           },
           "lastModifiedAssetTimestamp": {
@@ -10160,8 +10166,10 @@
           "createdAt",
           "description",
           "hasSharedLink",
+          "hideFromTimeline",
           "id",
           "isActivityEnabled",
+          "isExclusive",
           "owner",
           "ownerId",
           "shared",
@@ -11278,7 +11286,8 @@
           "archive",
           "timeline",
           "hidden",
-          "locked"
+          "locked",
+          "album-hidden"
         ],
         "type": "string"
       },
@@ -11512,6 +11521,12 @@
           },
           "description": {
             "type": "string"
+          },
+          "hideFromTimeline": {
+            "type": "boolean"
+          },
+          "isExclusive": {
+            "type": "boolean"
           }
         },
         "required": [
@@ -17304,7 +17319,13 @@
           "description": {
             "type": "string"
           },
+          "hideFromTimeline": {
+            "type": "boolean"
+          },
           "isActivityEnabled": {
+            "type": "boolean"
+          },
+          "isExclusive": {
             "type": "boolean"
           },
           "order": {

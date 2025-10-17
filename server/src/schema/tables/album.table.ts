@@ -60,6 +60,12 @@ export class AlbumTable {
   @Column({ default: AssetOrder.Desc })
   order!: Generated<AssetOrder>;
 
+  @Column({ type: 'boolean', default: false })
+  hideFromTimeline!: Generated<boolean>;
+
+  @Column({ type: 'boolean', default: false })
+  isExclusive!: Generated<boolean>;
+
   @UpdateIdColumn({ index: true })
   updateId!: Generated<string>;
 }

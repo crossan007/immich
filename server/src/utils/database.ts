@@ -158,7 +158,11 @@ export const isAssetChecksumConstraint = (error: unknown) => {
 };
 
 export function withDefaultVisibility<O>(qb: SelectQueryBuilder<DB, 'asset', O>) {
-  return qb.where('asset.visibility', 'in', [sql.lit(AssetVisibility.Archive), sql.lit(AssetVisibility.Timeline)]);
+  return qb.where('asset.visibility', 'in', [
+    sql.lit(AssetVisibility.Archive), 
+    sql.lit(AssetVisibility.Timeline),
+    sql.lit(AssetVisibility.AlbumHidden),
+  ]);
 }
 
 // TODO come up with a better query that only selects the fields we need
