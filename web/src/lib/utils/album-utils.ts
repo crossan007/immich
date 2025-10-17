@@ -22,12 +22,15 @@ import { get } from 'svelte/store';
  * Albums General Management
  * -------------------------
  */
-export const createAlbum = async (name?: string, assetIds?: string[]) => {
+export const createAlbum = async (name?: string, assetIds?: string[], options?: { hideFromTimeline?: boolean; isExclusive?: boolean; description?: string }) => {
   try {
     const newAlbum: AlbumResponseDto = await sdk.createAlbum({
       createAlbumDto: {
         albumName: name ?? '',
         assetIds,
+        description: options?.description,
+        hideFromTimeline: options?.hideFromTimeline,
+        isExclusive: options?.isExclusive,
       },
     });
     return newAlbum;

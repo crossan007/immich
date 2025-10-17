@@ -1,7 +1,10 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
+  import { AppRoute } from '$lib/constants';
   import Dropdown from '$lib/elements/Dropdown.svelte';
   import GroupTab from '$lib/elements/GroupTab.svelte';
   import SearchBar from '$lib/elements/SearchBar.svelte';
+  import AlbumCreateModal from '$lib/modals/AlbumCreateModal.svelte';
   import {
     AlbumFilter,
     AlbumGroupBy,
@@ -14,7 +17,6 @@
     type AlbumGroupOptionMetadata,
     type AlbumSortOptionMetadata,
     collapseAllAlbumGroups,
-    createAlbumAndRedirect,
     expandAllAlbumGroups,
     findFilterOption,
     findGroupOptionMetadata,
@@ -23,7 +25,7 @@
     groupOptionsMetadata,
     sortOptionsMetadata,
   } from '$lib/utils/album-utils';
-  import { Button, IconButton, Text } from '@immich/ui';
+  import { Button, IconButton, modalManager, Text } from '@immich/ui';
   import {
     mdiArrowDownThin,
     mdiArrowUpThin,
@@ -70,6 +72,13 @@
     } else {
       $albumViewSettings.sortBy = id;
       $albumViewSettings.sortOrder = defaultOrder;
+    }
+  };
+
+  const handleCreateAlbum = async () => {
+    const result = await modalManager.show(AlbumCreateModal);
+    if (result) {
+      await goto(`${AppRoute.ALBUMS}/${result.id}`);
     }
   };
 
@@ -128,13 +137,7 @@
 </div>
 
 <!-- Create Album -->
-<Button
-  leadingIcon={mdiPlusBoxOutline}
-  onclick={() => createAlbumAndRedirect()}
-  size="small"
-  variant="ghost"
-  color="secondary"
->
+<Button leadingIcon={mdiPlusBoxOutline} onclick={handleCreateAlbum} size="small" variant="ghost" color="secondary">
   <p class="hidden md:block">{$t('create_album')}</p>
 </Button>
 

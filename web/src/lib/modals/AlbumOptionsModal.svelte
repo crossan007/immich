@@ -77,6 +77,42 @@
     }
   };
 
+  const handleToggleHideFromTimeline = async () => {
+    try {
+      album = await updateAlbumInfo({
+        id: album.id,
+        updateAlbumDto: {
+          hideFromTimeline: !album.hideFromTimeline,
+        },
+      });
+
+      notificationController.show({
+        type: NotificationType.Info,
+        message: $t('hide_from_timeline_changed', { values: { enabled: album.hideFromTimeline } }),
+      });
+    } catch (error) {
+      handleError(error, $t('errors.cant_change_hide_from_timeline', { values: { enabled: album.hideFromTimeline } }));
+    }
+  };
+
+  const handleToggleExclusive = async () => {
+    try {
+      album = await updateAlbumInfo({
+        id: album.id,
+        updateAlbumDto: {
+          isExclusive: !album.isExclusive,
+        },
+      });
+
+      notificationController.show({
+        type: NotificationType.Info,
+        message: $t('exclusive_album_changed', { values: { enabled: album.isExclusive } }),
+      });
+    } catch (error) {
+      handleError(error, $t('errors.cant_change_exclusive_album', { values: { enabled: album.isExclusive } }));
+    }
+  };
+
   const handleRemoveUser = async (user: UserResponseDto): Promise<void> => {
     const confirmed = await modalManager.showDialog({
       title: $t('album_remove_user'),
@@ -133,6 +169,18 @@
             subtitle={$t('let_others_respond')}
             checked={album.isActivityEnabled}
             onToggle={handleToggleActivity}
+          />
+          <SettingSwitch
+            title={$t('hide_from_timeline')}
+            subtitle={$t('hide_photos_in_album_from_timeline')}
+            checked={album.hideFromTimeline}
+            onToggle={handleToggleHideFromTimeline}
+          />
+          <SettingSwitch
+            title={$t('exclusive_album')}
+            subtitle={$t('remove_photos_from_other_albums')}
+            checked={album.isExclusive}
+            onToggle={handleToggleExclusive}
           />
         </div>
       </div>
